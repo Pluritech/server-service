@@ -1,0 +1,28 @@
+{
+  "name": "@pluritech/server-service",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pluritech/server-service"
+  },
+  "author": {
+    "name": "Luis H. Moreno",
+    "email": "luishmcmoreno@gmail.com"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pluritech/server-service/issues"
+  },
+  "module": "@pluritech/server-service.js",
+  "typings": "@pluritech/server-service.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4",
+    "@pluritech/auth-service": "^1.0.0",
+    "@angular/http": "^4.1.3"
+  }
+}
