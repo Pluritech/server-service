@@ -106,7 +106,7 @@ export class ServerService {
  */
   public put(url: string, body: any, params?: any, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
-      this.http.put(request.url, body, {
+      return this.http.put(request.url, body, {
         headers: request.headers
       }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
     });
@@ -121,7 +121,7 @@ export class ServerService {
  */
   public post(url: string, body: any, params?: any, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
-      this.http.post(request.url, body, {
+      return this.http.post(request.url, body, {
         headers: request.headers
       }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
     });
@@ -135,7 +135,7 @@ export class ServerService {
  */
   public delete(url: string, params?: any, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
-      this.http.delete(request.url, {
+      return this.http.delete(request.url, {
         headers: request.headers
       }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
     });
@@ -150,7 +150,7 @@ export class ServerService {
  */
   public patch(url: string, body: any, params?: any, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
-      this.http.patch(request.url, body, {
+      return this.http.patch(request.url, body, {
         headers: request.headers
       }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
     });
