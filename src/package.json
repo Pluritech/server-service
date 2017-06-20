@@ -1,6 +1,6 @@
 {
   "name": "@pluritech/server-service",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/pluritech/server-service"
@@ -16,8 +16,8 @@
   "bugs": {
     "url": "https://github.com/pluritech/server-service/issues"
   },
-  "module": "@pluritech/server-service.js",
-  "typings": "@pluritech/server-service.d.ts",
+  "module": "server-service.js",
+  "typings": "server-service.d.ts",
   "peerDependencies": {
     "@angular/core": "^4.0.0",
     "rxjs": "^5.1.0",

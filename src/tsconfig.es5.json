@@ -22,7 +22,7 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "server-service.js",
-    "flatModuleId": "server-service"
+    "flatModuleId": "@pluritech/server-service"
   },
   "files": [
     "./index.ts"
