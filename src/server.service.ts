@@ -89,11 +89,11 @@ export class ServerService {
  * @param params Optional url parameters
  * @param headers Optional headers parameters
  */
-  public get(url: string, params?: any, headers?: Headers): Promise<any> {
+  public get(url: string, params?: any, timeout?: number, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.get(request.url, {
         headers: request.headers
-      }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
     });
   }
 
@@ -104,11 +104,11 @@ export class ServerService {
  * @param params Optional url parameters
  * @param headers Optional headers parameters
  */
-  public put(url: string, body: any, params?: any, headers?: Headers): Promise<any> {
+  public put(url: string, body: any, timeout?: number, params?: any, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.put(request.url, body, {
         headers: request.headers
-      }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
     });
   }
 
@@ -119,11 +119,11 @@ export class ServerService {
  * @param params Optional url parameters
  * @param headers Optional headers parameters
  */
-  public post(url: string, body: any, params?: any, headers?: Headers): Promise<any> {
+  public post(url: string, body: any, timeout?: number, params?: any, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.post(request.url, body, {
         headers: request.headers
-      }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
     });
   }
 
@@ -133,11 +133,11 @@ export class ServerService {
  * @param params Optional url parameters
  * @param headers Optional headers parameters
  */
-  public delete(url: string, params?: any, headers?: Headers): Promise<any> {
+  public delete(url: string, timeout?: number, params?: any, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.delete(request.url, {
         headers: request.headers
-      }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
     });
   }
 
@@ -148,11 +148,11 @@ export class ServerService {
  * @param params Optional url parameters
  * @param headers Optional headers parameters
  */
-  public patch(url: string, body: any, params?: any, headers?: Headers): Promise<any> {
+  public patch(url: string, body: any, timeout?: number, params?: any, headers?: Headers): Promise<any> {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.patch(request.url, body, {
         headers: request.headers
-      }).map(this.resMap).timeout(this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
     });
   }
 }
