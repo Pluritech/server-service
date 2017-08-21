@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, Inject } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { AuthService, AuthStatus } from '@pluritech/auth-service';
@@ -11,7 +11,7 @@ interface Request {
 @Injectable()
 export class ServerService {
 
-  private timeout = 8000;
+  private _timeout: number;
 
   private errorAF;
   private resMap;
@@ -21,7 +21,12 @@ export class ServerService {
   public onTimeout: EventEmitter<any> = new EventEmitter<any>();
   public onServerError: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private http: Http, private authService: AuthService) {
+  constructor(private http: Http,
+    private authService: AuthService,
+    @Inject('timeoutToAll') private timeoutToAll) {
+    if (this.timeoutToAll) {
+      this._timeout = timeoutToAll || 8000;
+    }
     this.errorAF = (error) => {
 
       if (error.name && error.name === 'TimeoutError') {
@@ -41,6 +46,10 @@ export class ServerService {
       return Observable.throw(JSON.parse(error._body) || {message: 'Server Error'});
     };
     this.resMap = (res: Response) => res.status === 204 ? '' : res.json();
+  }
+
+  public getTimeout(): number {
+    return this._timeout;
   }
 
   private buildParams(params: any): string {
@@ -93,7 +102,7 @@ export class ServerService {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.get(request.url, {
         headers: request.headers
-      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this._timeout).catch(this.errorAF).toPromise();
     });
   }
 
@@ -108,7 +117,7 @@ export class ServerService {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.put(request.url, body, {
         headers: request.headers
-      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this._timeout).catch(this.errorAF).toPromise();
     });
   }
 
@@ -123,7 +132,7 @@ export class ServerService {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.post(request.url, body, {
         headers: request.headers
-      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this._timeout).catch(this.errorAF).toPromise();
     });
   }
 
@@ -137,7 +146,7 @@ export class ServerService {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.delete(request.url, {
         headers: request.headers
-      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this._timeout).catch(this.errorAF).toPromise();
     });
   }
 
@@ -152,7 +161,7 @@ export class ServerService {
     return this.prepareRequest(url, params, headers).then((request) => {
       return this.http.patch(request.url, body, {
         headers: request.headers
-      }).map(this.resMap).timeout(timeout ? timeout : this.timeout).catch(this.errorAF).toPromise();
+      }).map(this.resMap).timeout(timeout ? timeout : this._timeout).catch(this.errorAF).toPromise();
     });
   }
 }

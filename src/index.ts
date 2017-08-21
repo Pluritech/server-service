@@ -14,10 +14,10 @@ export * from './server.service';
   ]
 })
 export class ServerServiceModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(timeoutToAll?: number): ModuleWithProviders {
     return {
       ngModule: ServerServiceModule,
-      providers: [ServerService]
+      providers: [ServerService, {provide: 'timeoutToAll', useValue: timeoutToAll}]
     };
   }
 }

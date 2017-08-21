@@ -45,7 +45,19 @@ export class AppModule { }
 
 Now, we can use ServerService to control authentication
 
+## Features
+### Time out - Scope Global
+You can provide one limit time in (ms) to the requests, if this limit time exceed, the request will break out and error of TimeOut will be throw. To provide the limit time, just put it as param on forRoot(time?: number):
+The time default is: 8000 ms
 
+```typescript
+  imports: [
+    BrowserModule,
+
+    // Specify your library as an import with limit time of 10 seconds
+    ServerServiceModule.forRoot(10000: number)
+  ],
+```
 ## Development
 
 To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
