@@ -31,7 +31,10 @@ export class ServerService {
 
       if (error.name && error.name === 'TimeoutError') {
         this.onTimeout.emit(error.name);
-        return Observable.throw({message: error.name});
+        return Observable.throw({
+          type: error.name,
+          message: `Exceeded the timeout of ${this._timeout} ms.`
+        });
       }
       let resJson = JSON.parse(error._body);
       if (resJson && resJson.status && resJson.status === 'Unauthorized') {
