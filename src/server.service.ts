@@ -24,9 +24,7 @@ export class ServerService {
   constructor(private http: Http,
     private authService: AuthService,
     @Inject('timeoutToAll') private timeoutToAll) {
-    if (this.timeoutToAll) {
-      this._timeout = timeoutToAll || 8000;
-    }
+    this._timeout = timeoutToAll || 8000;
     this.errorAF = (error) => {
 
       if (error.name && error.name === 'TimeoutError') {
