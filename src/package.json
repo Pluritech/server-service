@@ -22,7 +22,7 @@
     "@angular/core": "^4.0.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4",
-    "@pluritech/auth-service": "^1.0.0",
+    "@pluritech/auth-service": "^2.1.0",
     "@angular/http": "^4.1.3"
   }
 }
