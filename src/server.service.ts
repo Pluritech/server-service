@@ -26,7 +26,7 @@ export class ServerService {
     @Inject('timeoutToAll') private timeoutToAll) {
     this._timeout = timeoutToAll || 8000;
     this.errorAF = (error) => {
-      let resBodyJson = JSON.parse(error._body) || {message: 'Server Error'};
+      let resBodyJson = error._body ? JSON.parse(error._body) : {message: 'body blank'};
       if (error.name && error.name === 'TimeoutError') {
         this.onTimeout.emit(error.name);
         return Observable.throw({
