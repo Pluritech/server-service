@@ -1,6 +1,6 @@
 {
   "name": "@pluritech/server-service",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",

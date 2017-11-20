@@ -26,7 +26,6 @@ export class ServerService {
     @Inject('timeoutToAll') private timeoutToAll) {
     this._timeout = timeoutToAll || 8000;
     this.errorAF = (error) => {
-
       if (error.name && error.name === 'TimeoutError') {
         this.onTimeout.emit(error.name);
         return Observable.throw({
@@ -44,7 +43,11 @@ export class ServerService {
           this.onUnauthorized.emit(resJson);
         }
       }
-      return Observable.throw(JSON.parse(error._body) || {message: 'Server Error'});
+      let objResponseError = {
+        body: JSON.parse(error._body) || {message: 'Server Error'},
+        errorRaw: error
+      };
+      return Observable.throw(objResponseError);
     };
     this.resMap = (res: Response) => res.status === 204 ? '' : res.json();
   }
