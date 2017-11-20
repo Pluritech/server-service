@@ -26,6 +26,7 @@ export class ServerService {
     @Inject('timeoutToAll') private timeoutToAll) {
     this._timeout = timeoutToAll || 8000;
     this.errorAF = (error) => {
+      let resBodyJson = JSON.parse(error._body) || {message: 'Server Error'};
       if (error.name && error.name === 'TimeoutError') {
         this.onTimeout.emit(error.name);
         return Observable.throw({
@@ -33,21 +34,16 @@ export class ServerService {
           message: `Exceeded the timeout of ${this._timeout} ms.`
         });
       }
-      let resJson = JSON.parse(error._body);
-      if (resJson && resJson.status && resJson.status === 'Unauthorized') {
-        if (resJson.message.includes('Invalid token')) {
-          this.onInvalidToken.emit(resJson);
+      if (resBodyJson && resBodyJson.status && resBodyJson.status === 'Unauthorized') {
+        if (resBodyJson.message.includes('Invalid token')) {
+          this.onInvalidToken.emit(resBodyJson);
         }
         if  (!this.reqUnauthorizedMsgShow) {
           this.reqUnauthorizedMsgShow = true;
-          this.onUnauthorized.emit(resJson);
+          this.onUnauthorized.emit(resBodyJson);
         }
       }
-      let objResponseError = {
-        body: JSON.parse(error._body) || {message: 'Server Error'},
-        errorRaw: error
-      };
-      return Observable.throw(objResponseError);
+      return Observable.throw({body: resBodyJson, errorRaw: error});
     };
     this.resMap = (res: Response) => res.status === 204 ? '' : res.json();
   }
